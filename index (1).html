@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaming Market</title>
+<style>
+:root {
+  --site-primary: #7655e8;
+  --site-secondary: #c43b46;
+  --site-background: #0d0e14;
+  --site-on-primary: #ffffff;
+  --site-on-secondary: #ffffff;
+  --site-on-background: #f3f2fa;
+  --site-font-body: Inter, ui-sans-serif, system-ui, sans-serif;
+  --site-font-heading: Inter, ui-sans-serif, system-ui, sans-serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+  color-scheme: light dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--site-background); color: var(--site-on-background); font-family: var(--site-font-body); }
+#app { min-height: 100vh; width: 100%; border-radius: 0; background-color: light-dark(#f4f3f9, var(--site-background)); color: light-dark(#1b1925, var(--site-on-background)); }
+.shell { display: grid; grid-template-columns: 245px minmax(0,1fr); min-height: 100vh; }
+aside { padding: calc(26px * var(--site-spacing-scale)) 18px; background: light-dark(#fff, #11121a); border-right: 1px solid light-dark(#e5e2ed,#252633); }
+.brand { display:flex; gap:12px; align-items:center; padding: 0 8px 30px; font-weight:850; letter-spacing:.3px; }
+.brandmark { width:38px; height:38px; display:grid; place-items:center; border-radius:13px; color:white; background:linear-gradient(135deg,var(--site-primary),var(--site-secondary)); }
+.navlabel { color: #92909f; font-size:10px; font-weight:800; letter-spacing:1.5px; padding: 14px 10px 8px; }
+.nav { display:flex; align-items:center; gap:11px; padding:12px 12px; margin:4px 0; color:light-dark(#625f6d,#aaa8b7); border-radius:calc(11px * var(--site-radius-scale)); font-size:13px; cursor:pointer; }
+.nav.active { background: color-mix(in srgb,var(--site-primary) 17%,transparent); color:light-dark(#5735ca,#c4b5ff); font-weight:750; }
+.nav .ico { width:20px; text-align:center; }
+.side-note { margin:30px 5px 0; padding:14px; border:1px solid light-dark(#e7e4ef,#2a2a39); border-radius:14px; font-size:11px; color:#9693a3; line-height:1.55; }
+main { padding:30px clamp(18px,4vw,48px) 50px; max-width:1500px; width:100%; margin:0 auto; }
+.top { display:flex; justify-content:space-between; align-items:center; gap:15px; margin-bottom:30px; }
+.eyebrow { color:#9693a3; font-size:11px; font-weight:750; letter-spacing:1.4px; text-transform:uppercase; }
+h1 { font-family:var(--site-font-heading); font-size:calc(29px * var(--site-heading-scale)); margin:7px 0 0; letter-spacing:-1px; }
+.sub { color:#9693a3; font-size:13px; margin-top:7px; }
+.topright { display:flex; gap:10px; align-items:center; }
+.pill { padding:9px 12px; border:1px solid light-dark(#e6e3ed,#2a2b39); border-radius:30px; color:#9996a5; font-size:11px; }
+.btn { border:0; cursor:pointer; padding:11px 15px; border-radius:calc(10px * var(--site-radius-scale)); background:var(--site-primary); color:white; font-weight:750; font-size:12px; }
+.btn:hover { filter:brightness(1.1); }
+.btn.red { background:var(--site-secondary); }
+.btn.ghost { background:transparent; border:1px solid light-dark(#dedbe7,#343443); color:inherit; }
+.stats { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-bottom:22px; }
+.stat { padding:18px; border:1px solid light-dark(#e7e4ee,#282936); background:light-dark(#fff,#151620); border-radius:calc(16px * var(--site-radius-scale)); }
+.stat-head { display:flex; justify-content:space-between; color:#9693a3; font-size:11px; }
+.stat-icon { width:31px; height:31px; display:grid; place-items:center; border-radius:10px; background:color-mix(in srgb,var(--site-primary) 16%,transparent); }
+.stat-value { font-size:27px; font-weight:850; letter-spacing:-1px; margin-top:15px; }
+.stat-foot { color:#9693a3; font-size:10px; margin-top:5px; }
+.columns { display:grid; grid-template-columns:minmax(0,1.65fr) minmax(270px,.85fr); gap:16px; align-items:start; }
+.panel { border:1px solid light-dark(#e7e4ee,#282936); background:light-dark(#fff,#151620); border-radius:calc(16px * var(--site-radius-scale)); padding:19px; margin-bottom:16px; }
+.panelhead { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:17px; }
+h2 { font-size:15px; margin:0; }
+.muted { color:#9693a3; font-size:11px; }
+.filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+input,select,textarea { background:light-dark(#f8f7fb,#10111a); color:inherit; border:1px solid light-dark(#e2dfeb,#30313e); border-radius:9px; padding:10px 11px; font:inherit; font-size:12px; outline:none; min-width:0; }
+input:focus,select:focus,textarea:focus { border-color:var(--site-primary); }
+.search { flex:1; min-width:130px; }
+.tablewrap { overflow-x:auto; }
+table { border-collapse:collapse; width:100%; min-width:520px; text-align:left; }
+th { color:#92909f; font-size:10px; font-weight:700; padding:11px 8px; border-bottom:1px solid light-dark(#eeeaf3,#292a37); }
+td { font-size:12px; padding:14px 8px; border-bottom:1px solid light-dark(#f0edf5,#242531); }
+.platform { display:flex; gap:9px; align-items:center; font-weight:700; }
+.picon { width:29px; height:29px; display:grid; place-items:center; border-radius:9px; color:white; font-size:12px; }
+.discord { background:#5865f2; }.rockstar { background:#c43b46; }
+.status { display:inline-block; padding:5px 8px; border-radius:20px; font-size:10px; font-weight:750; }
+.available { color:#26a879; background:#26a8791a; }.sold { color:#9693a3; background:#9693a31a; }
+.rowactions { display:flex; gap:6px; }.tiny { background:transparent; color:#a09dad; border:1px solid light-dark(#e8e5ef,#343542); border-radius:7px; padding:5px 8px; cursor:pointer; font-size:10px; }
+.formgrid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.formgrid label { display:grid; gap:6px; color:#9996a5; font-size:10px; font-weight:700; }
+.formgrid .wide { grid-column:1/-1; }
+.passwordrow { display:flex; gap:7px; }.passwordrow input { flex:1; width:100%; }
+.generator { margin-top:13px; padding:13px; border-radius:12px; background:light-dark(#f7f5fc,#10111a); border:1px solid light-dark(#e9e5f1,#2c2d3a); }
+.genline { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:10px; }
+.genline strong { font-size:12px; }
+.genopts { display:flex; gap:10px; flex-wrap:wrap; color:#9996a5; font-size:10px; margin-top:9px; }
+.genopts label { display:flex; align-items:center; gap:5px; }
+.genopts input { min-width:auto; }
+.empty { text-align:center; color:#9693a3; padding:28px 8px; font-size:12px; }
+.toast { position:fixed; bottom:20px; right:20px; background:#232431; color:white; border:1px solid #414252; padding:12px 16px; border-radius:10px; font-size:12px; opacity:0; transform:translateY(8px); transition:.2s; pointer-events:none; }
+.toast.show { opacity:1; transform:translateY(0); }
+.footer { color:#8d899a; font-size:10px; line-height:1.6; margin-top:8px; }
+@media(max-width:980px){.stats{grid-template-columns:repeat(2,1fr)}.columns{grid-template-columns:1fr}}
+@media(max-width:680px){.shell{grid-template-columns:1fr}aside{padding:13px 14px;border-right:0;border-bottom:1px solid #292a37}.brand{padding:0 5px 12px}.navlabel,.side-note{display:none}.navs{display:flex;gap:5px;overflow:auto}.nav{white-space:nowrap;margin:0;padding:9px}.top{align-items:flex-start;flex-direction:column}.topright{width:100%;justify-content:space-between}main{padding:22px 14px}.stats{gap:9px}.stat{padding:13px}.stat-value{font-size:23px}.formgrid{grid-template-columns:1fr}.formgrid .wide{grid-column:auto}}
+</style>
+</head>
+<body>
+<div id="app">
+<div class="shell">
+<aside>
+  <div class="brand"><div class="brandmark">GM</div><div>GAME<span style="color:var(--site-primary)">MARKET</span></div></div>
+  <div class="navs">
+    <div class="nav active"><span class="ico">▦</span> Overview</div>
+    <div class="nav" onclick="document.getElementById('inventory').scrollIntoView({behavior:'smooth'})"><span class="ico">▤</span> Inventory</div>
+    <div class="nav" onclick="document.getElementById('addpanel').scrollIntoView({behavior:'smooth'})"><span class="ico">＋</span> Add listing</div>
+    <div class="nav" onclick="document.getElementById('generator').scrollIntoView({behavior:'smooth'})"><span class="ico">✧</span> Password tool</div>
+  </div>
+  <div class="navlabel">WORKSPACE</div>
+  <div class="side-note">Local demo dashboard<br>Listings are saved only in this browser. No account passwords are stored.</div>
+</aside>
+<main>
+  <div class="top"><div><div class="eyebrow">Seller workspace / overview</div><h1>Dashboard</h1><div class="sub">Manage your digital gaming listings in one place.</div></div><div class="topright"><span class="pill">● LOCAL DEMO</span><button class="btn" onclick="document.getElementById('addpanel').scrollIntoView({behavior:'smooth'})">＋ Add listing</button></div></div>
+  <section class="stats">
+    <div class="stat"><div class="stat-head"><span>Total listings</span><span class="stat-icon">▤</span></div><div class="stat-value" id="total">0</div><div class="stat-foot">All platforms</div></div>
+    <div class="stat"><div class="stat-head"><span>Available</span><span class="stat-icon">◉</span></div><div class="stat-value" id="available">0</div><div class="stat-foot">Currently listed</div></div>
+    <div class="stat"><div class="stat-head"><span>Marked sold</span><span class="stat-icon">✓</span></div><div class="stat-value" id="sold">0</div><div class="stat-foot">Demo sales tracker</div></div>
+    <div class="stat"><div class="stat-head"><span>Sold value</span><span class="stat-icon">₱</span></div><div class="stat-value" id="revenue">₱0</div><div class="stat-foot">Based on marked-sold listings</div></div>
+  </section>
+  <div class="columns">
+    <div>
+      <section class="panel" id="inventory">
+        <div class="panelhead"><div><h2>Inventory</h2><div class="muted" style="margin-top:5px">Your saved listing records</div></div><span class="muted" id="countlabel">0 records</span></div>
+        <div class="filters"><input class="search" id="search" placeholder="Search listing or platform…" oninput="render()"><select id="filter" onchange="render()"><option value="all">All platforms</option><option>Discord</option><option>Rockstar</option></select><select id="statusfilter" onchange="render()"><option value="all">All statuses</option><option value="Available">Available</option><option value="Sold">Sold</option></select></div>
+        <div class="tablewrap"><table><thead><tr><th>PLATFORM / LABEL</th><th>ACCOUNT EMAIL</th><th>PRICE</th><th>STATUS</th><th>ACTIONS</th></tr></thead><tbody id="rows"></tbody></table></div>
+      </section>
+      <section class="panel" id="addpanel">
+        <div class="panelhead"><div><h2>Add a listing</h2><div class="muted" style="margin-top:5px">Track an item you are authorized to offer</div></div><span class="muted">＋ NEW</span></div>
+        <form id="listingform" class="formgrid">
+          <label>PLATFORM<select id="platform"><option>Discord</option><option>Rockstar</option></select></label>
+          <label>PRICE (PHP)<input id="price" type="number" min="0" step="1" placeholder="e.g. 500" required></label>
+          <label class="wide">LISTING LABEL<input id="label" maxlength="60" placeholder="e.g. Premium gaming profile" required></label>
+          <label class="wide">ACCOUNT EMAIL<input id="accountemail" type="email" maxlength="254" placeholder="Email associated with this account (optional)"></label>
+          <label class="wide">NOTES (OPTIONAL)<input id="notes" maxlength="120" placeholder="Short description; do not enter passwords"></label>
+          <div class="wide"><button class="btn" type="submit">Save listing</button></div>
+        </form>
+      </section>
+    </div>
+    <div>
+      <section class="panel" id="generator">
+        <div class="panelhead"><div><h2>Secure password tool</h2><div class="muted" style="margin-top:5px">Generate a strong password locally</div></div><span style="color:var(--site-primary)">✧</span></div>
+        <div class="generator">
+          <div class="genline"><strong>Generated password</strong><span class="muted" id="lenlabel">18 characters</span></div>
+          <div class="passwordrow"><input id="password" readonly value="Click generate"><button class="btn ghost" onclick="copyPassword()">Copy</button></div>
+          <div style="margin-top:13px"><label class="muted">LENGTH <span id="lengthval">18</span></label><input id="length" type="range" min="10" max="40" value="18" style="width:100%;padding:0;margin-top:9px" oninput="lengthval.textContent=this.value;lenlabel.textContent=this.value+' characters'"></div>
+          <div class="genopts"><label><input type="checkbox" id="upper" checked> Uppercase</label><label><input type="checkbox" id="numbers" checked> Numbers</label><label><input type="checkbox" id="symbols" checked> Symbols</label></div>
+          <button class="btn" style="width:100%;margin-top:14px" onclick="generate()">✧ Generate password</button>
+        </div>
+        <p class="footer">Use unique passwords and enable two-factor authentication. This tool does not create platform accounts or store credentials.</p>
+      </section>
+      <section class="panel">
+        <div class="panelhead"><h2>Platform breakdown</h2><span class="muted">LISTINGS</span></div>
+        <div id="breakdown"></div>
+      </section>
+      <section class="panel">
+        <h2>Seller safety</h2>
+        <p class="footer">Discord and Rockstar may restrict account transfers or sales under their terms. Check each platform's current rules before listing anything. Never share recovery details, one-time codes, or passwords with buyers.</p>
+      </section>
+    </div>
+  </div>
+</main>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const KEY='gamemarket_listings_v1';
+let listings=[];
+try { listings=JSON.parse(localStorage.getItem(KEY)||'[]'); if(!Array.isArray(listings)) listings=[]; } catch(e){ listings=[]; }
+const money=n=>'₱'+Number(n||0).toLocaleString('en-PH');
+function save(){localStorage.setItem(KEY,JSON.stringify(listings));render();}
+function notify(s){const t=document.getElementById('toast');t.textContent=s;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1900);}
+function render(){
+ const q=document.getElementById('search').value.toLowerCase(), f=document.getElementById('filter').value, sf=document.getElementById('statusfilter').value;
+ const shown=listings.filter(x=>(x.label+' '+x.platform+' '+(x.accountemail||'')+' '+(x.notes||'')).toLowerCase().includes(q)&&(f==='all'||x.platform===f)&&(sf==='all'||x.status===sf));
+ document.getElementById('total').textContent=listings.length;
+ document.getElementById('available').textContent=listings.filter(x=>x.status==='Available').length;
+ const sold=listings.filter(x=>x.status==='Sold');document.getElementById('sold').textContent=sold.length;
+ document.getElementById('revenue').textContent=money(sold.reduce((a,x)=>a+Number(x.price),0));
+ document.getElementById('countlabel').textContent=shown.length+' records';
+ document.getElementById('rows').innerHTML=shown.length?shown.map(x=>`<tr><td><div class="platform"><span class="picon ${x.platform==='Discord'?'discord':'rockstar'}">${x.platform==='Discord'?'D':'R'}</span><div>${esc(x.label)}<div class="muted" style="margin-top:3px">${x.platform}${x.notes?' · '+esc(x.notes):''}</div></div></div></td><td>${x.accountemail?esc(x.accountemail):'<span class="muted">Not added</span>'}</td><td><b>${money(x.price)}</b></td><td><span class="status ${x.status==='Sold'?'sold':'available'}">${x.status}</span></td><td><div class="rowactions"><button class="tiny" onclick="toggleStatus('${x.id}')">${x.status==='Sold'?'Restore':'Mark sold'}</button><button class="tiny" onclick="removeListing('${x.id}')">Delete</button></div></td></tr>`).join(''):'<tr><td colspan="5" class="empty">No listings found. Add your first listing above.</td></tr>';
+ const d=['Discord','Rockstar'].map(p=>{const n=listings.filter(x=>x.platform===p).length;const pct=listings.length?n/listings.length*100:0;return `<div style="margin:15px 0"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px"><b>${p}</b><span class="muted">${n} listings</span></div><div style="height:7px;background:light-dark(#eeeaf3,#292a37);border-radius:10px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${p==='Discord'?'#5865f2':'#c43b46'};border-radius:10px"></div></div></div>`}).join('');
+ document.getElementById('breakdown').innerHTML=d;
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+document.getElementById('listingform').addEventListener('submit',e=>{e.preventDefault();const price=Number(document.getElementById('price').value);if(!Number.isFinite(price)||price<0)return;listings.unshift({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),platform:document.getElementById('platform').value,label:document.getElementById('label').value.trim(),accountemail:document.getElementById('accountemail').value.trim(),price,notes:document.getElementById('notes').value.trim(),status:'Available'});save();e.target.reset();notify('Listing saved on this device.');});
+function toggleStatus(id){const x=listings.find(x=>x.id===id);if(x){x.status=x.status==='Sold'?'Available':'Sold';save();}}
+function removeListing(id){if(confirm('Delete this listing record?')){listings=listings.filter(x=>x.id!==id);save();notify('Listing deleted.');}}
+function generate(){const chars='abcdefghijklmnopqrstuvwxyz'+(document.getElementById('upper').checked?'ABCDEFGHIJKLMNOPQRSTUVWXYZ':'')+(document.getElementById('numbers').checked?'0123456789':'')+(document.getElementById('symbols').checked?'!@#$%^&*()-_=+[]{}?':'');if(!chars){notify('Select at least one character type.');return;}const len=Number(document.getElementById('length').value);let out='';const bytes=new Uint32Array(len);if(window.crypto&&crypto.getRandomValues){crypto.getRandomValues(bytes);for(let i=0;i<len;i++)out+=chars[bytes[i]%chars.length];}else{for(let i=0;i<len;i++)out+=chars[Math.floor(Math.random()*chars.length)];}document.getElementById('password').value=out;}
+async function copyPassword(){const v=document.getElementById('password').value;if(!v||v==='Click generate'){notify('Generate a password first.');return;}try{await navigator.clipboard.writeText(v);notify('Password copied.');}catch(e){document.getElementById('password').select();notify('Select and copy the password.');}}
+render();
+</script>
+</body>
+</html>
